@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TestProfile xmlns="http://www.specflow.org/schemas/plus/TestProfile/1.5">
+  <Settings projectName="SpecflowBrowserStack" />
+  <Execution stopAfterFailures="0" testThreadCount="10" testSchedulingMode="Sequential" retryCount="0" apartmentState="MTA" />
+  <Environment testThreadIsolation="Process" />
+  <TestAssemblyPaths>
+    <TestAssemblyPath>SpecflowBrowserStack.dll</TestAssemblyPath>
+  </TestAssemblyPaths>
+
+  <Report>
+    <Template name="Report\ReportTemplate.cshtml" />
+  </Report>
+
+	<Targets>
+		<Target name="0">
+			<Filter>Single</Filter>
+			<DeploymentTransformationSteps>
+				<EnvironmentVariable variable="Test_Browser_Index" value="0" />
+			</DeploymentTransformationSteps>
+			<Environment testThreadIsolation="Process" />
+		</Target>
+		<Target name="1">
+			<Filter>Local</Filter>
+			<DeploymentTransformationSteps>
+				<EnvironmentVariable variable="Test_Browser_Index" value="1" />
+			</DeploymentTransformationSteps>
+			<Environment testThreadIsolation="Process" />
+		</Target>
+		<Target name="2">
+			<Filter>Mobile</Filter>
+			<DeploymentTransformationSteps>
+				<EnvironmentVariable variable="Test_Browser_Index" value="2" />
+			</DeploymentTransformationSteps>
+			<Environment testThreadIsolation="Process" />
+		</Target>
+		<Target name="3">
+			<Filter>Parallel</Filter>
+			<DeploymentTransformationSteps>
+				<EnvironmentVariable variable="Test_Browser_Index" value="3" />
+			</DeploymentTransformationSteps>
+			<Environment testThreadIsolation="Process" />
+		</Target>
+		<Target name="4">
+			<Filter>Parallel</Filter>
+			<DeploymentTransformationSteps>
+				<EnvironmentVariable variable="Test_Browser_Index" value="4" />
+			</DeploymentTransformationSteps>
+			<Environment testThreadIsolation="Process" />
+		</Target>
+		<Target name="5">
+			<Filter>Parallel</Filter>
+			<DeploymentTransformationSteps>
+				<EnvironmentVariable variable="Test_Browser_Index" value="5" />
+			</DeploymentTransformationSteps>
+			<Environment testThreadIsolation="Process" />
+		</Target>
+	</Targets>
+	<TestThreads>
+		<TestThread id="0">
+			<TestAffinity>testpath:Target:0</TestAffinity>
+		</TestThread>
+		<TestThread id="1">
+			<TestAffinity>testpath:Target:1</TestAffinity>
+		</TestThread>
+		<TestThread id="2">
+			<TestAffinity>testpath:Target:2</TestAffinity>
+		</TestThread>
+		<TestThread id="3">
+			<TestAffinity>testpath:Target:3</TestAffinity>
+		</TestThread>
+		<TestThread id="4">
+			<TestAffinity>testpath:Target:4</TestAffinity>
+		</TestThread>
+		<TestThread id="5">
+			<TestAffinity>testpath:Target:5</TestAffinity>
+		</TestThread>
+	
+	</TestThreads>
+</TestProfile>
