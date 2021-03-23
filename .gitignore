@@ -1,0 +1,10 @@
+packages/
+.vs
+bin
+obj
+*.user
+*.html
+*.txt
+*.xml
+*.features.cs
+*.suo
