@@ -8,3 +8,4 @@ obj
 *.xml
 *.features.cs
 *.suo
+TestResults

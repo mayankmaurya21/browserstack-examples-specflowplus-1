@@ -4,6 +4,7 @@ using OpenQA.Selenium;
 using System;
 using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Support.UI;
+using DocumentFormat.OpenXml.Drawing;
 
 namespace SpecflowBrowserStack.Steps
 {
@@ -12,7 +13,7 @@ namespace SpecflowBrowserStack.Steps
 	{
 		private readonly MobileDriver _driver;
 		private static bool result;
-
+		
 		public offersSteps(MobileDriver driver)
 		{
 			_driver = driver;
@@ -21,6 +22,7 @@ namespace SpecflowBrowserStack.Steps
 		public void GivenINavigateToWebsiteOnMobile_()
 		{
 			_driver.Current.Value.Navigate().GoToUrl("https://bstackdemo.com/");
+			((IJavaScriptExecutor)_driver).ExecuteScript("window.navigator.geolocation.getCurrentPosition = function(cb){cb({ coords: {accuracy: 20,altitude: null,altitudeAccuracy: null,heading: null,latitude: 19.043192,longitude: 72.86305240000002,speed: null}}); }");
 		}
 
 		[Then(@"I click on Sign-In link")]
@@ -32,7 +34,7 @@ namespace SpecflowBrowserStack.Steps
 		[When(@"I type ""(.*)"" in username field")]
 		public void WhenITypeInUsernameField(string username)
 		{
-			_driver.Wait.Until(ExpectedConditions.ElementExists(By.Id("react-select-2-input")));
+			_driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("react-select-2-input")));
 			_driver.Current.Value.FindElement(By.Id("react-select-2-input")).SendKeys(username + "\n");
 		}
 
@@ -52,7 +54,7 @@ namespace SpecflowBrowserStack.Steps
 		[Then(@"I click on Offers link")]
 		public void ThenIClickOnOffersLink()
 		{
-			_driver.Wait.Until(ExpectedConditions.ElementExists(By.Id("offers")));
+			_driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("offers")));
 			_driver.Current.Value.FindElementById("offers").Click();
 		}
 

@@ -34,8 +34,7 @@ namespace SpecflowBrowserStack.Steps
         [Then(@"I add two products to cart")]
         public void ThenIAddTwoProductsToCart()
         {
-            
-            _driver.Wait.Until(ExpectedConditions.ElementExists(By.XPath("(//div[text()='Add to cart'])[1]")));
+            _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("(//div[text()='Add to cart'])[1]")));
             _driver.Current.FindElement(By.XPath("(//div[text()='Add to cart'])[1]")).Click();
             _driver.Current.FindElement(By.XPath("(//div[text()='Add to cart'])[1]")).Click();
 
@@ -50,7 +49,7 @@ namespace SpecflowBrowserStack.Steps
         [When(@"I type ""(.*)"" in firstNameInput input")]
         public void WhenITypeInFirstNameInputInput(string firstName)
         {
-            _driver.Wait.Until(ExpectedConditions.ElementExists(By.Id("firstNameInput")));
+            _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("firstNameInput")));
             _driver.Current.FindElement(By.Id("firstNameInput")).SendKeys(firstName);
         }
 
@@ -82,24 +81,35 @@ namespace SpecflowBrowserStack.Steps
         public void ThenIClickOnCheckoutButton()
         { 
            _driver.Current.FindElement(By.Id("checkout-shipping-continue")).Click();
-           _driver.Wait.Until(ExpectedConditions.ElementExists(By.XPath("//button[text()='Continue Shopping »']")));
+           _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("//button[text()='Continue Shopping »']")));
            _driver.Current.FindElement(By.XPath("//button[text()='Continue Shopping »']")).Click();
         }
 
         [Then(@"I click on ""(.*)"" link")]
         public void ThenIClickOnLink(string orders)
         {
-            _driver.Wait.Until(ExpectedConditions.ElementExists(By.Id("orders")));
+            _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("orders")));
             _driver.Current.FindElement(By.Id("orders")).Click();
         }
 
         [Then(@"I should see elements in list")]
         public void ThenIShouldSeeElementsInList()
         {
-            _driver.Wait.Until(ExpectedConditions.ElementExists(By.XPath("(//span[@class='a-color-secondary label' ])[1]")));
+            _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("(//span[@class='a-color-secondary label' ])[1]")));
             string orderPlaced = _driver.Current.FindElement(By.XPath("(//span[@class='a-color-secondary label' ])[1]")).Text;
-            bool result =FluentAssertions.CustomAssertionAttribute.Equals("Order placed", orderPlaced);
-           
+            bool result =FluentAssertions.CustomAssertionAttribute.Equals("order placed", orderPlaced.ToLower());
+            string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
+            if (infra == "" || infra == null)
+            {
+                if (result)
+                {
+                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \"Tests function Assertion Passed\"}}");
+                }
+                else
+                {
+                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Tests function Assertion Failed\"}}");
+                }
+            }
         }
     }
 }

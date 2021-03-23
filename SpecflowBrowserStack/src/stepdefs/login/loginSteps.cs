@@ -35,15 +35,15 @@ namespace SpecflowBrowserStack.Steps
 		[When(@"I type '(.*)' in username")]
 		public void ITypeUsername(string username)
 		{
-			_driver.Wait.Until(ExpectedConditions.ElementExists(By.Id("react-select-2-input")));
+			_driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("react-select-2-input")));
 			_driver.Current.FindElement(By.Id("react-select-2-input")).SendKeys(username+ "\n");
-			
+
 		}
 		[When(@"I type '(.*)' in password")]
 		public void ITypePassword(string password)
 		{
 			_driver.Current.FindElement(By.Id("react-select-3-input")).SendKeys(password + "\n");
-			
+
 		}
 
 		[Then(@"I press Log In Button")]
@@ -60,33 +60,28 @@ namespace SpecflowBrowserStack.Steps
 			if (username == "locked_user")
 			{
 				//System.Threading.Thread.Sleep(4000);
-				_driver.Wait.Until(ExpectedConditions.ElementExists(By.XPath("//h3[@class='api-error']")));
+				_driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("//h3[@class='api-error']")));
 				string errorMsg = _driver.Current.FindElement(By.XPath("//h3[@class='api-error']")).Text;
 				result = FluentAssertions.CustomAssertionAttribute.Equals(errorMsg, "Your account has been locked.");
 			}
 			else
 			{
-				_driver.Wait.Until(ExpectedConditions.ElementExists(By.XPath("//span[@class='username']")));
+				_driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("//span[@class='username']")));
 				string displayedUsername = _driver.Current.FindElement(By.XPath("//span[@class='username']")).Text;
 				result = FluentAssertions.CustomAssertionAttribute.Equals(username, displayedUsername);
 			}
+			string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
+			if (infra == "" || infra == null)
+			{
+				if (result)
+				{
+					((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \"Tests function Assertion Passed\"}}");
+				}
+				else
+				{
+					((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Tests function Assertion Failed\"}}");
+				}
+			}
 		}
-        [AfterScenario]
-        public void MarkfeaturePassorFail()
-        {
-            Environment.SetEnvironmentVariable("TEST_INFRA", "");
-            string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
-            if (infra == "" || infra == null)
-            {
-                if (result)
-                {
-                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \"Tests function Assertion Passed\"}}");
-                }
-                else
-                {
-                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Tests function Assertion Failed\"}}");
-                }
-            }
-        }
 	}
 }

@@ -48,6 +48,18 @@ namespace SpecflowBrowserStack.Steps
            String fristElementPrice= _driver.Current.FindElement(By.XPath("(//div[@class='val']//b)[1]")).Text;
            String secondElementPrice = _driver.Current.FindElement(By.XPath("(//div[@class='val']//b)[2]")).Text;
            Assert.True(Convert.ToInt32(fristElementPrice) < Convert.ToInt32(secondElementPrice));
+            string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
+            if (infra == "" || infra == null)
+            {
+                if (result)
+                {
+                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \"Tests function Assertion Passed\"}}");
+                }
+                else
+                {
+                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Tests function Assertion Failed\"}}");
+                }
+            }
         }
     }
 }

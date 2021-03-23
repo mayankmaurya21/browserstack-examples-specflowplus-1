@@ -1,7 +1,7 @@
 {
   "host": "hub.browserstack.com",
-  "username": "brwoserStack_username",
-  "access_key": "brwoserStack_password",
+  "username": "browserStack_username",
+  "access_key": "browserStack_accessKey",
   "commonCapabilities": {
     "build": "browserstack-examples-specflow",
     "project": "Demo BrowserStack"
@@ -25,8 +25,9 @@
       "name": "Parallel_test_chrome"
     },
     {
-      "browser": "internet explorer",
-      "name": "Parallel_test_IE"
+      "browser": "firefox",
+      "name": "Parallel_test_IE",
+      "browserstack.ie.arch": "x32",
     },
     {
       "browser": "safari",
@@ -36,8 +37,7 @@
   "mobile": [
     {
       "name": "Parallel_test_mobile",
-      "device": "Samsung Galaxy S8",
-      "browserstack.gpsLocation": "12.727088961387354,9.844779968261719"
+      "device": "Samsung Galaxy S8"
     }
   ]
 }
