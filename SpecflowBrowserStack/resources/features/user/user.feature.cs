@@ -20,14 +20,14 @@ namespace SpecflowBrowserStack.Resources.Features.User
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.6.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [TechTalk.SpecRun.FeatureAttribute("User Feature", new string[] {
-            "Single"}, SourceFile="resources\\features\\user\\user.feature", SourceLine=1)]
+            "Mobile"}, SourceFile="resources\\features\\user\\user.feature", SourceLine=1)]
     public partial class UserFeatureFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = new string[] {
-                "Single"};
+                "Mobile"};
         
 #line 1 "user.feature"
 #line hidden
@@ -37,7 +37,7 @@ namespace SpecflowBrowserStack.Resources.Features.User
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "resources/features/user", "User Feature", null, ProgrammingLanguage.CSharp, new string[] {
-                        "Single"});
+                        "Mobile"});
             testRunner.OnFeatureStart(featureInfo);
         }
         

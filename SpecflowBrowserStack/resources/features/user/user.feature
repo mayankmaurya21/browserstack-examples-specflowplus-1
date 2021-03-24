@@ -1,4 +1,4 @@
-@Single
+@Mobile
 Feature: User Feature
 
   Scenario: Login as User with no image loaded

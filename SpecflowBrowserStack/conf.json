@@ -1,7 +1,7 @@
 {
   "host": "hub.browserstack.com",
   "username": "browserStack_username",
-  "access_key": "browserStack_accessKey",
+  "access_key": "browserStack_password",
   "commonCapabilities": {
     "build": "browserstack-examples-specflow",
     "project": "Demo BrowserStack"
@@ -27,7 +27,7 @@
     {
       "browser": "firefox",
       "name": "Parallel_test_IE",
-      "browserstack.ie.arch": "x32",
+      "browserstack.ie.arch": "x32"
     },
     {
       "browser": "safari",

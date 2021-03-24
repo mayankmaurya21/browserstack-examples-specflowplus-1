@@ -1,18 +1,15 @@
 using TechTalk.SpecFlow;
 using SpecflowBrowserStack.Drivers;
 using OpenQA.Selenium;
-using Xunit;
-using OpenQA.Selenium.Support.UI;
 using System;
 
 namespace SpecflowBrowserStack.Steps
 {
-	[Binding]
+    [Binding]
 	public class e2eSteps
 
 	{
 		private readonly WebDriver _driver;
-        private static bool results=true;
 
         public e2eSteps(WebDriver driver)
 		{
@@ -22,13 +19,15 @@ namespace SpecflowBrowserStack.Steps
         [When(@"I type ""(.*)"" in username")]
         public void WhenITypeInUsername(string username)
         {
-            _driver.Current.FindElement(By.Id("react-select-2-input")).SendKeys(username + "\n");
+            _driver.Current.FindElement(By.Id("react-select-2-input")).SendKeys(username);
+            _driver.Current.FindElement(By.Id("react-select-2-input")).SendKeys(Keys.Enter);
         }
 
         [When(@"I type ""(.*)"" in password")]
         public void WhenITypeInPassword(string password)
         {
-            _driver.Current.FindElement(By.Id("react-select-3-input")).SendKeys(password + "\n");
+            _driver.Current.FindElement(By.Id("react-select-3-input")).SendKeys(password);
+            _driver.Current.FindElement(By.Id("react-select-3-input")).SendKeys(Keys.Enter);
         }
 
         [Then(@"I add two products to cart")]

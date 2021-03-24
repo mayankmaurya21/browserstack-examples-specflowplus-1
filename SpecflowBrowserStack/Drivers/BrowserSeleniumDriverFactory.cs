@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
 using AventStack.ExtentReports.Reporter;
 using BrowserStack;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Android;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
@@ -30,6 +27,7 @@ namespace SpecflowBrowserStack.Drivers
         private static ExtentTest featureName;
         private static ExtentTest scenario;
         private static ExtentHtmlReporter htmlReporter;
+        private static double epoch;
 
         public BrowserSeleniumDriverFactory(ConfigurationDriver configurationDriver, TestRunContext testRunContext, FeatureContext featureContext, ScenarioContext scenarioContext)
         {
@@ -41,6 +39,7 @@ namespace SpecflowBrowserStack.Drivers
 
         public IWebDriver GetForBrowser(int browserId)
         {
+           
             // sets remote URL
             string username = Environment.GetEnvironmentVariable("BROWSERSTACK_USERNAME");
             if (username == null || username == "")
@@ -76,9 +75,24 @@ namespace SpecflowBrowserStack.Drivers
                 foreach (var tuple in specificCap.GetChildren().AsEnumerable())
                 {
                     caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString());
+                    if (tuple.Value.ToString() == "chrome" && _featureContext.FeatureInfo.Title == "Offers Feature")
+                    {
+                        Dictionary<string, object> profile = new Dictionary<string, object>();
+
+                        // 0 - Default, 1 - Allow, 2 - Block
+                        profile.Add("profile.default_content_setting_values.geolocation", 1);
+
+                        // INIT CHROME OPTIONS
+                        Dictionary<string, object> chromeOptions = new Dictionary<string, object>();
+
+                        // SET CHROME OPTIONS
+                        chromeOptions.Add("prefs", profile);
+                        caps.SetCapability("chromeOptions", chromeOptions);
+                    }
+                   
                     if (tuple.Key.ToString() == "name")
                     {
-                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _featureContext.FeatureInfo.Title);
+                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _featureContext.FeatureInfo.Title );
                     }
                     if (infra == "ON_PREM" && tuple.Key.ToString() == "browser")
                     {
@@ -104,7 +118,20 @@ namespace SpecflowBrowserStack.Drivers
                 }
                 return new RemoteWebDriver(new Uri(remoteUrl), caps);
             }
-
+            else if (browserId == 2)
+            {
+                // Set session specific capability
+                var specificCaps = _configurationDriver.Mobile.ToList<IConfigurationSection>()[browserId - 2];
+                foreach (var tuple in specificCaps.GetChildren().AsEnumerable())
+                {
+                    caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString());
+                    if (tuple.Key.ToString() == "name")
+                    {
+                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _featureContext.FeatureInfo.Title );
+                    }
+                }
+                return new RemoteWebDriver(new Uri(remoteUrl), caps);
+            }
             else if (browserId > 2)
             {
                 // Set session specific capability
@@ -123,42 +150,8 @@ namespace SpecflowBrowserStack.Drivers
                 }
                 return new RemoteWebDriver(new Uri(remoteUrl), caps);
             }
-
             else { return null; }
             // return null;
-        }
-
-        public AndroidDriver<AndroidElement> GetForMobileBrowser(int browserId)
-        {
-            AppiumOptions capability = new AppiumOptions();
-            // sets remote URL
-            string username = Environment.GetEnvironmentVariable("BROWSERSTACK_USERNAME");
-            if (username == null || username == "")
-            {
-                username = _configurationDriver.Username;
-            }
-            string access_key = Environment.GetEnvironmentVariable("BROWSERSTACK_ACCESS_KEY");
-            if (access_key == null || access_key == "")
-            {
-                access_key = _configurationDriver.AccessKey;
-            }
-            string remoteUrl = "https://";
-            if (username != null && access_key != null)
-            {
-                remoteUrl += username + ":" + access_key + "@";
-            }
-            remoteUrl += _configurationDriver.SeleniumBaseUrl + "/wd/hub";
-            if (browserId == 2)
-            {
-                // Set session specific capability
-                var specificCaps = _configurationDriver.Mobile.ToList<IConfigurationSection>()[browserId - 2];
-                foreach (var tuple in specificCaps.GetChildren().AsEnumerable())
-                {
-                    capability.AddAdditionalCapability(tuple.Key.ToString(), tuple.Value.ToString());
-                }
-                return new AndroidDriver<AndroidElement>(new Uri(remoteUrl), capability);
-            }
-            else { return null; }
         }
 
         public Local GetLocal(int browserIndex)
@@ -206,6 +199,7 @@ namespace SpecflowBrowserStack.Drivers
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
+            epoch = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
         }
 
         [AfterTestRun]

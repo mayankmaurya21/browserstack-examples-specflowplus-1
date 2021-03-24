@@ -22,7 +22,6 @@ namespace SpecflowBrowserStack.Steps
 		public void GivenINavigatedTowebsite()
 		{
 			_driver.Current.Navigate().GoToUrl("https://bstackdemo.com/");
-			
 		}
 		
 
@@ -36,23 +35,20 @@ namespace SpecflowBrowserStack.Steps
 		public void ITypeUsername(string username)
 		{
 			_driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.Id("react-select-2-input")));
-			_driver.Current.FindElement(By.Id("react-select-2-input")).SendKeys(username+ "\n");
-
+			_driver.Current.FindElement(By.Id("react-select-2-input")).SendKeys(username);
+			_driver.Current.FindElement(By.Id("react-select-2-input")).SendKeys(Keys.Enter);
 		}
 		[When(@"I type '(.*)' in password")]
 		public void ITypePassword(string password)
 		{
-			_driver.Current.FindElement(By.Id("react-select-3-input")).SendKeys(password + "\n");
-
+			_driver.Current.FindElement(By.Id("react-select-3-input")).SendKeys(password);
+			_driver.Current.FindElement(By.Id("react-select-3-input")).SendKeys(Keys.Enter);
 		}
 
 		[Then(@"I press Log In Button")]
 		public void IPressLogInButton()
 		{
-			
-			_driver.Current.FindElement(By.ClassName("login_password")).Click();
 			_driver.Current.FindElement(By.Id("login-btn")).Click();
-
 		}
 		[Then(@"I should see user '(.*)' logged in")]
 		public void IshouldSeeUsername(string username)

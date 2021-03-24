@@ -20,14 +20,14 @@ namespace SpecflowBrowserStack.Resources.Features.Offers
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.6.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [TechTalk.SpecRun.FeatureAttribute("Offers Feature", new string[] {
-            "Mobile"}, SourceFile="resources\\features\\offers\\offers.feature", SourceLine=1)]
+            "Single"}, SourceFile="resources\\features\\offers\\offers.feature", SourceLine=1)]
     public partial class OffersFeatureFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = new string[] {
-                "Mobile"};
+                "Single"};
         
 #line 1 "offers.feature"
 #line hidden
@@ -37,7 +37,7 @@ namespace SpecflowBrowserStack.Resources.Features.Offers
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "resources/features/offers", "Offers Feature", null, ProgrammingLanguage.CSharp, new string[] {
-                        "Mobile"});
+                        "Single"});
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -100,19 +100,19 @@ namespace SpecflowBrowserStack.Resources.Features.Offers
             {
                 this.ScenarioStart();
 #line 5
-    testRunner.Given("I navigate to website on mobile.", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+    testRunner.Given("I navigate to website with mumbai geo-location", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
-    testRunner.Then("I click on Sign-In link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("I click on Sign In link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 7
-    testRunner.When("I type \"fav_user\" in username field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("I type \"fav_user\" in username", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
-    testRunner.When("I type \"testingisfun99\" in password field", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+    testRunner.When("I type \"testingisfun99\" in password", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 9
-    testRunner.Then("I press Log-In Button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+    testRunner.Then("I press Log In Button", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 10
     testRunner.Then("I click on Offers link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
