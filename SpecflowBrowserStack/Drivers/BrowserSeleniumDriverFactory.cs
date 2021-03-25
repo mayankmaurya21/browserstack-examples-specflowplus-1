@@ -51,7 +51,6 @@ namespace SpecflowBrowserStack.Drivers
             {
                 access_key = _configurationDriver.AccessKey;
             }
-            Environment.SetEnvironmentVariable("TEST_INFRA", "");
             string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
 
             if (infra == "DOCKER")
@@ -89,10 +88,10 @@ namespace SpecflowBrowserStack.Drivers
                         chromeOptions.Add("prefs", profile);
                         caps.SetCapability("chromeOptions", chromeOptions);
                     }
-                   
+
                     if (tuple.Key.ToString() == "name")
                     {
-                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _featureContext.FeatureInfo.Title );
+                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _scenarioContext.ScenarioInfo.Title);
                     }
                     if (infra == "ON_PREM" && tuple.Key.ToString() == "browser")
                     {
@@ -109,7 +108,7 @@ namespace SpecflowBrowserStack.Drivers
                     caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString());
                     if (tuple.Key.ToString() == "name")
                     {
-                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _featureContext.FeatureInfo.Title);
+                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _scenarioContext.ScenarioInfo.Title);
                     }
                     if (infra == "ON_PREM" && tuple.Key.ToString() == "browser")
                     {
@@ -127,7 +126,7 @@ namespace SpecflowBrowserStack.Drivers
                     caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString());
                     if (tuple.Key.ToString() == "name")
                     {
-                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _featureContext.FeatureInfo.Title );
+                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _scenarioContext.ScenarioInfo.Title);
                     }
                 }
                 return new RemoteWebDriver(new Uri(remoteUrl), caps);
@@ -141,7 +140,7 @@ namespace SpecflowBrowserStack.Drivers
                     caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString());
                     if (tuple.Key.ToString() == "name")
                     {
-                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _featureContext.FeatureInfo.Title);
+                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _scenarioContext.ScenarioInfo.Title);
                     }
                     if (infra == "ON_PREM" && tuple.Key.ToString() == "browser")
                     {
@@ -183,11 +182,11 @@ namespace SpecflowBrowserStack.Drivers
         public IWebDriver OnPremDrivers(String browser)
         {
             if (browser == "firefox")
-                return new FirefoxDriver(@"..\..\browserstack-examples-specflow\SpecflowBrowserStack\Drivers\OnPremDriver");
+                return new FirefoxDriver(@"..\..\browserstack-examples-specflow-1\SpecflowBrowserStack\Drivers\OnPremDriver");
             else if (browser == "chrome")
-                return new ChromeDriver(@"..\..\browserstack-examples-specflow\SpecflowBrowserStack\Drivers\OnPremDriver");
+                return new ChromeDriver(@"..\..\browserstack-examples-specflowplus-1\SpecflowBrowserStack\Drivers\OnPremDriver\");
             else if (browser == "internet explorer")
-                return new InternetExplorerDriver(@"..\..\browserstack-examples-specflow\SpecflowBrowserStack\Drivers\OnPremDriver");
+                return new InternetExplorerDriver(@"..\..\browserstack-examples-specflow-1\SpecflowBrowserStack\Drivers\OnPremDriver");
             else
                 return null;
         }
