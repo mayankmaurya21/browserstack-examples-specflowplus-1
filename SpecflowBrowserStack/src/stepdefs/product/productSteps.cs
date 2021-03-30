@@ -4,13 +4,11 @@ using OpenQA.Selenium;
 using System;
 using Xunit;
 using OpenQA.Selenium.Support.UI;
-using AventStack.ExtentReports;
-using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Gherkin.Model;
 
 namespace SpecflowBrowserStack.Steps
 {
-	[Binding]
+    [Binding]
 	public class productSteps
 	{
 		private readonly WebDriver _driver;
@@ -20,7 +18,13 @@ namespace SpecflowBrowserStack.Steps
 		{
 			_driver = driver;
         }
-        
+        [Given(@"I navigate to website locally")]
+        public void GivenINavigateToWebsiteLocally()
+        {
+            _driver.Current.Navigate().GoToUrl("http://localhost:3000/");
+        }
+
+
         [Given(@"I press the Apple Vendor Filter")]
         public void GivenIPressTheAppleVendorFilter()
         {
@@ -31,7 +35,8 @@ namespace SpecflowBrowserStack.Steps
         public void ThenIShouldSeeItemsInTheList(int noOfproducts)
         { 
             string numberOfProducts = _driver.Current.FindElement(By.XPath("//small[@class='products-found']")).Text;
-            FluentAssertions.CustomAssertionAttribute.Equals(noOfproducts+" Product(s) found.", numberOfProducts);
+           bool assert= FluentAssertions.CustomAssertionAttribute.Equals(noOfproducts+" Product(s) found.", numberOfProducts);
+           _driver.markTestPassFailBrowserStack(assert, _driver.Current);
         }
 
         [Given(@"I order by lowest to highest")]
@@ -48,18 +53,7 @@ namespace SpecflowBrowserStack.Steps
            String fristElementPrice= _driver.Current.FindElement(By.XPath("(//div[@class='val']//b)[1]")).Text;
            String secondElementPrice = _driver.Current.FindElement(By.XPath("(//div[@class='val']//b)[2]")).Text;
            Assert.True(Convert.ToInt32(fristElementPrice) < Convert.ToInt32(secondElementPrice));
-            string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
-            if (infra == "" || infra == null)
-            {
-                if (result)
-                {
-                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \"Tests function Assertion Passed\"}}");
-                }
-                else
-                {
-                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Tests function Assertion Failed\"}}");
-                }
-            }
+            _driver.markTestPassFailBrowserStack(result, _driver.Current);
         }
     }
 }

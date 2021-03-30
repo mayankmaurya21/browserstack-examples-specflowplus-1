@@ -74,5 +74,20 @@ namespace SpecflowBrowserStack.Drivers
 			}
 			_isDisposed = true;
 		}
+		public void markTestPassFailBrowserStack(bool assertionResult, IWebDriver driver)
+        {
+			string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
+			if (infra == "" || infra == null)
+			{
+				if (assertionResult)
+				{
+					((IJavaScriptExecutor)driver).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \"Tests function Assertion Passed\"}}");
+				}
+				else
+				{
+					((IJavaScriptExecutor)driver).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Tests function Assertion Failed\"}}");
+				}
+			}
+		}
 	}
 }

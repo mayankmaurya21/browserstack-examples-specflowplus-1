@@ -38,18 +38,7 @@ namespace SpecflowBrowserStack.Steps
 		{
 			String text = _driver.Current.FindElement(By.XPath("//div[@class='p-6 text-2xl tracking-wide text-center text-red-50']")).Text;
 			result = FluentAssertions.CustomAssertionAttribute.Equals("We've promotional offers in your location.", text);
-			string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
-			if (infra == "" || infra == null)
-			{
-				if (result)
-				{
-					((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \"Tests function Assertion Passed\"}}");
-				}
-				else
-				{
-					((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Tests function Assertion Failed\"}}");
-				}
-			}
+			_driver.markTestPassFailBrowserStack(result, _driver.Current);
 		}
 	}
 }

@@ -6,15 +6,16 @@ using System;
 namespace SpecflowBrowserStack.Steps
 {
     [Binding]
-	public class e2eSteps
+    public class e2eSteps
 
-	{
-		private readonly WebDriver _driver;
+    {
+        private readonly WebDriver _driver;
+        private bool result;
 
         public e2eSteps(WebDriver driver)
-		{
-			_driver = driver;
-		}
+        {
+            _driver = driver;
+        }
 
         [When(@"I type ""(.*)"" in username")]
         public void WhenITypeInUsername(string username)
@@ -41,7 +42,7 @@ namespace SpecflowBrowserStack.Steps
 
         [Then(@"I click on Buy Button")]
         public void ThenIClickOnBuyButton()
-        {   
+        {
             _driver.Current.FindElement(By.XPath("//div[text()='Checkout']")).Click();
         }
 
@@ -65,7 +66,7 @@ namespace SpecflowBrowserStack.Steps
         }
 
         [When(@"I type ""(.*)"" in provinceInput input")]
-        public void WhenITypeInProvinceInputInput(string province )
+        public void WhenITypeInProvinceInputInput(string province)
         {
             _driver.Current.FindElement(By.Id("provinceInput")).SendKeys(province);
         }
@@ -78,10 +79,10 @@ namespace SpecflowBrowserStack.Steps
 
         [Then(@"I click on Checkout Button")]
         public void ThenIClickOnCheckoutButton()
-        { 
-           _driver.Current.FindElement(By.Id("checkout-shipping-continue")).Click();
-           _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("//button[text()='Continue Shopping »']")));
-           _driver.Current.FindElement(By.XPath("//button[text()='Continue Shopping »']")).Click();
+        {
+            _driver.Current.FindElement(By.Id("checkout-shipping-continue")).Click();
+            _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("//button[text()='Continue Shopping »']")));
+            _driver.Current.FindElement(By.XPath("//button[text()='Continue Shopping »']")).Click();
         }
 
         [Then(@"I click on ""(.*)"" link")]
@@ -96,19 +97,8 @@ namespace SpecflowBrowserStack.Steps
         {
             _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("(//span[@class='a-color-secondary label' ])[1]")));
             string orderPlaced = _driver.Current.FindElement(By.XPath("(//span[@class='a-color-secondary label' ])[1]")).Text;
-            bool result =FluentAssertions.CustomAssertionAttribute.Equals("order placed", orderPlaced.ToLower());
-            string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
-            if (infra == "" || infra == null)
-            {
-                if (result)
-                {
-                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \"Tests function Assertion Passed\"}}");
-                }
-                else
-                {
-                    ((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Tests function Assertion Failed\"}}");
-                }
-            }
+            result = FluentAssertions.CustomAssertionAttribute.Equals("order placed", orderPlaced.ToLower());
+            _driver.markTestPassFailBrowserStack(result, _driver.Current);
         }
     }
 }

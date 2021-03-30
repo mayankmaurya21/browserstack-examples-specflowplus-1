@@ -9,10 +9,8 @@ namespace SpecflowBrowserStack.Steps
     [Binding]
     public class loginSteps
     {
-		
 		private readonly WebDriver _driver;
 		private static bool result;
-
 		public loginSteps(WebDriver driver)
 		{
 			_driver = driver;
@@ -66,18 +64,7 @@ namespace SpecflowBrowserStack.Steps
 				string displayedUsername = _driver.Current.FindElement(By.XPath("//span[@class='username']")).Text;
 				result = FluentAssertions.CustomAssertionAttribute.Equals(username, displayedUsername);
 			}
-			string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
-			if (infra == "" || infra == null)
-			{
-				if (result)
-				{
-					((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"passed\", \"reason\": \"Tests function Assertion Passed\"}}");
-				}
-				else
-				{
-					((IJavaScriptExecutor)_driver.Current).ExecuteScript("browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\":\"failed\", \"reason\": \"Tests function Assertion Failed\"}}");
-				}
-			}
+			_driver.markTestPassFailBrowserStack(result, _driver.Current);
 		}
 	}
 }

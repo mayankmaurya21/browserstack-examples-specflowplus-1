@@ -1,7 +1,7 @@
 {
   "host": "hub.browserstack.com",
-  "username": "browserStack_Username",
-  "access_key": "browserStack_AccessKey",
+  "username": "Brwoserstack_Username",
+  "access_key": "Brwoserstack_AccessKey",
   "commonCapabilities": {
     "build": "browserstack-examples-specflow",
     "project": "Demo BrowserStack"

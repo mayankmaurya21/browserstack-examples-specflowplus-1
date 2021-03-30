@@ -6,6 +6,6 @@ obj
 *.html
 *.txt
 *.xml
-*.features.cs
+*.feature.cs
 *.suo
 TestResults
