@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using AventStack.ExtentReports;
-using AventStack.ExtentReports.Gherkin.Model;
-using AventStack.ExtentReports.Reporter;
 using BrowserStack;
 using Microsoft.Extensions.Configuration;
 using OpenQA.Selenium;
@@ -23,11 +20,6 @@ namespace SpecflowBrowserStack.Drivers
         string remoteUrl = "";
         private FeatureContext _featureContext;
         private ScenarioContext _scenarioContext;
-        private static ExtentReports extent;
-        private static ExtentTest featureName;
-        private static ExtentTest scenario;
-        private static ExtentHtmlReporter htmlReporter;
-        private static double epoch;
 
         public BrowserSeleniumDriverFactory(ConfigurationDriver configurationDriver, TestRunContext testRunContext, FeatureContext featureContext, ScenarioContext scenarioContext)
         {
@@ -189,35 +181,6 @@ namespace SpecflowBrowserStack.Drivers
                 return new InternetExplorerDriver(@"..\..\browserstack-examples-specflow-1\SpecflowBrowserStack\Drivers\OnPremDriver");
             else
                 return null;
-        }
-
-        [BeforeTestRun]
-        public static void initializereport()
-        {
-            htmlReporter = new ExtentHtmlReporter(@"..\..\browserstack-examples-specflow\SpecflowBrowserStack\Extendreport.html");
-            htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
-            extent = new ExtentReports();
-            extent.AttachReporter(htmlReporter);
-            epoch = (DateTime.UtcNow - new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc)).TotalSeconds;
-        }
-
-        [AfterTestRun]
-        public static void teardownReport()
-        {
-            extent.Flush();
-        }
-        [BeforeFeature]
-        public void BeforeFeature()
-        {
-            //Create dynamic feature name
-            featureName = extent.CreateTest<Feature>(_featureContext.FeatureInfo.Title);
-        }
-
-        [BeforeScenario]
-        public void Initialize(ScenarioContext scenarioContext)
-        {
-            //Create dynamic scenario name
-            scenario = featureName.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title);
         }
     }
 }
