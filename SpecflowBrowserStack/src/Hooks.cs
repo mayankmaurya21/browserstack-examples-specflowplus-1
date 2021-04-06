@@ -31,13 +31,11 @@ namespace SpecflowBrowserStack.src.stepdefs
         public static void InitializeReport()
         {
             //Initialize Extent report before test starts
-            var htmlReporter = new ExtentHtmlReporter(@"..\..\browserstack-examples-specflowplus-1\SpecflowBrowserStack\Extendreport.html");
+            var htmlReporter = new ExtentHtmlReporter(@"..\..\Extendreport.html");
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
-            htmlReporter.LoadConfig(@"..\..\browserstack-examples-specflowplus-1\SpecflowBrowserStack\extent-congif.xml");
+
             //Attach report to reporter
             extent = new ExtentReports();
-
-
             extent.AttachReporter(htmlReporter);
         }
 
@@ -74,7 +72,6 @@ namespace SpecflowBrowserStack.src.stepdefs
         [BeforeScenario]
         public static void Initialize(ScenarioContext scenarioContext)
         {
-
             //Create dynamic scenario name
             scenario = featureName.CreateNode<Scenario>(scenarioContext.ScenarioInfo.Title);
         }

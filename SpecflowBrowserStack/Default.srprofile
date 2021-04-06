@@ -54,6 +54,20 @@
 			</DeploymentTransformationSteps>
 			<Environment testThreadIsolation="Process" />
 		</Target>
+		<Target name="6">
+			<Filter>Local_Parallel</Filter>
+			<DeploymentTransformationSteps>
+				<EnvironmentVariable variable="Test_Browser_Index" value="6" />
+			</DeploymentTransformationSteps>
+			<Environment testThreadIsolation="Process" />
+		</Target>
+		<Target name="7">
+			<Filter>Local_Parallel</Filter>
+			<DeploymentTransformationSteps>
+				<EnvironmentVariable variable="Test_Browser_Index" value="7" />
+			</DeploymentTransformationSteps>
+			<Environment testThreadIsolation="Process" />
+		</Target>
 	</Targets>
 	<TestThreads>
 		<TestThread id="0">
@@ -73,6 +87,12 @@
 		</TestThread>
 		<TestThread id="5">
 			<TestAffinity>testpath:Target:5</TestAffinity>
+		</TestThread>
+		<TestThread id="6">
+			<TestAffinity>testpath:Target:6</TestAffinity>
+		</TestThread>
+		<TestThread id="7">
+			<TestAffinity>testpath:Target:7</TestAffinity>
 		</TestThread>
 	
 	</TestThreads>

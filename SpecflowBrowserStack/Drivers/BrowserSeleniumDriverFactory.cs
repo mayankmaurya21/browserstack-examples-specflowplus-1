@@ -123,10 +123,28 @@ namespace SpecflowBrowserStack.Drivers
                 }
                 return new RemoteWebDriver(new Uri(remoteUrl), caps);
             }
-            else if (browserId > 2)
+            else if (browserId > 2 && browserId < 6)
             {
                 // Set session specific capability
                 var specificCaps = _configurationDriver.Parallel.ToList<IConfigurationSection>()[browserId - 3];
+                foreach (var tuple in specificCaps.GetChildren().AsEnumerable())
+                {
+                    caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString());
+                    if (tuple.Key.ToString() == "name")
+                    {
+                        caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString() + " " + _scenarioContext.ScenarioInfo.Title);
+                    }
+                    if (infra == "ON_PREM" && tuple.Key.ToString() == "browser")
+                    {
+                        return OnPremDrivers(tuple.Value.ToString());
+                    }
+                }
+                return new RemoteWebDriver(new Uri(remoteUrl), caps);
+            }
+            else if (browserId > 5 && browserId < 8)
+            {
+                // Set session specific capability
+                var specificCaps = _configurationDriver.Local_Parallel.ToList<IConfigurationSection>()[browserId - 6];
                 foreach (var tuple in specificCaps.GetChildren().AsEnumerable())
                 {
                     caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString());
@@ -147,28 +165,33 @@ namespace SpecflowBrowserStack.Drivers
 
         public Local GetLocal(int browserIndex)
         {
-            if (browserIndex < 2)
-            {
+           /* if (browserIndex < 2)
+            {*/
                 var specificCap = _configurationDriver.Local.ToList<IConfigurationSection>()[0];
 
                 foreach (var tuple in specificCap.GetChildren().AsEnumerable())
                 {
-                    if (tuple.Key.ToString() == "browserstack.local")
+                int i = 0;
+                if (tuple.Key.ToString() == "browserstack.local")
                     {
+                    
                         Local _local = new Local();
-                        List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
-                        new KeyValuePair<string, string>("key", _configurationDriver.AccessKey)
+                    List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
+                        new KeyValuePair<string, string>("key", _configurationDriver.AccessKey),
+                        new KeyValuePair<string, string>("local-identifier", "identifier-unique-name"+i.ToString())
+                        
                     };
                         _local.start(bsLocalArgs);
                         return _local;
                     }
+                i += 1;
                 }
                 return null;
-            }
+          /*  }
             else
             {
                 return null;
-            }
+            }*/
         }
 
         public IWebDriver OnPremDrivers(String browser)

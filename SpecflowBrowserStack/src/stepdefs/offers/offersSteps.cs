@@ -22,7 +22,7 @@ namespace SpecflowBrowserStack.Steps
 		[Given(@"I navigate to website with mumbai geo-location")]
 		public void GivenINavigateToWebsiteWithMumbaiGeo_Location()
 		{
-			_driver.Current.Navigate().GoToUrl("https://bstackdemo.com/");
+			_driver.Current.Navigate().GoToUrl("http://localhost:3000/");
 			((IJavaScriptExecutor)_driver.Current).ExecuteScript("window.navigator.geolocation.getCurrentPosition = function(cb){cb({ coords: {accuracy: 20,altitude: null,altitudeAccuracy: null,heading: null,latitude: 19.043192,longitude: 72.86305240000002,speed: null}}); }");
 		}
 

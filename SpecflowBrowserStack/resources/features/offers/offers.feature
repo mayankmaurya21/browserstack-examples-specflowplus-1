@@ -1,4 +1,4 @@
-@Single
+@Local
 Feature: Offers Feature
 
   Scenario: Offers for mumbai geo-location

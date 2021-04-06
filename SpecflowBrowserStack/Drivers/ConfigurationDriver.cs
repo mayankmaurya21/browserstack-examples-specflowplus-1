@@ -25,6 +25,7 @@ namespace SpecflowBrowserStack.Drivers
 		public IEnumerable<IConfigurationSection> Local => Configuration.GetSection("local").GetChildren();
 		public IEnumerable<IConfigurationSection> Parallel => Configuration.GetSection("parallel").GetChildren();
 		public IEnumerable<IConfigurationSection> Mobile => Configuration.GetSection("mobile").GetChildren();
+		public IEnumerable<IConfigurationSection> Local_Parallel => Configuration.GetSection("local_parallel").GetChildren();
 		private IConfiguration GetConfiguration()
 		{
 			var configurationBuilder = new ConfigurationBuilder();

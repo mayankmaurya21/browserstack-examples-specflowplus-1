@@ -1,8 +1,6 @@
 using TechTalk.SpecFlow;
 using SpecflowBrowserStack.Drivers;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using System;
 
 namespace SpecflowBrowserStack.Steps
 {
@@ -11,6 +9,7 @@ namespace SpecflowBrowserStack.Steps
     {
 		private readonly WebDriver _driver;
 		private static bool result;
+
 		public loginSteps(WebDriver driver)
 		{
 			_driver = driver;
@@ -19,11 +18,10 @@ namespace SpecflowBrowserStack.Steps
 		[Given(@"I navigate to website")]
 		public void GivenINavigatedTowebsite()
 		{
-			_driver.Current.Navigate().GoToUrl("https://bstackdemo.com/");
-		}
+            _driver.Current.Navigate().GoToUrl("https://bstackdemo.com/");
+        }
 		
-
-	[Then(@"I click on Sign In link")]
+		[Then(@"I click on Sign In link")]
 		public void ThenIClickOnSignInLink()
 		{
 			_driver.Current.FindElement(By.Id("signin")).Click();

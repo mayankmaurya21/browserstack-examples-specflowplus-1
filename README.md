@@ -21,8 +21,8 @@ The #{ Selenium test / Cypress / Puppeteer / Other } tests are run on different 
     -Visual Studio 2019 
 
     .Net Core:
-    ```sh
-    <dotnet restore>
+    ```
+    dotnet restore
     ```
 
 
@@ -35,9 +35,9 @@ The #{ Selenium test / Cypress / Puppeteer / Other } tests are run on different 
   | E2E      | End to End Scenario                | This test scenario verifies successful product purchase lifecycle end-to-end. It is executed in Parallel profile.|
   | Login    | Login with given username          | This test verifies the login workflow with different types of valid login users.It is executed in Single profile. |
   | Login    | Login as Locked User               | This test verifies the login workflow error for a locked user. It is executed in Single profile.|
-  | Offers   | Offers for Mumbai location     | This test mocks the GPS location for Mumbai and verifies that the product offers applicable for the Mumbai location are shown. It is executed in Single profile.  |
-  | Product  | Apply Apple Vendor Filter          | This test verifies that the Apple products are only shown if the Apple vendor filter option is applied. It is executed in Local profile. |
-  | Product  | Apply Lowest to Highest Order By   | This test verifies that the product prices are in ascending order when the product sort "Lowest to Highest" is applied. It is executed in Local profile. |
+  | Offers   | Offers for Mumbai location     | This test mocks the GPS location for Mumbai and verifies that the product offers applicable for the Mumbai location are shown. It is executed in Local profile.  |
+  | Product  | Apply Apple Vendor Filter          | This test verifies that the Apple products are only shown if the Apple vendor filter option is applied. It is executed in Local_Parallel profile. |
+  | Product  | Apply Lowest to Highest Order By   | This test verifies that the product prices are in ascending order when the product sort "Lowest to Highest" is applied. It is executed in Local_Parallel profile. |
   | User     | Login as User with no image loaded | This test verifies that the product images load for user: "image_not_loading_user" on the e-commerce application. Since the images do not load, the test case assertion fails. It is executed in Mobile profile.|
   | User     | Login as User with existing Orders |  This test verifies that existing orders are shown for user: "existing_orders_user" .It is executed in Mobile profile. |
   
@@ -59,6 +59,7 @@ This infrastructure points to running the tests on your own machine using a brow
 ## Prerequisites
 
 - For this infrastructure configuration (i.e on-premise), ensure that the ChromeDriver executable is placed in the ` SpecflowBrowserStack/Drivers/OnPremDriver/ ` folder.
+- ChromeDriver can be downloaded from https://chromedriver.chromium.org/downloads
 
 Note: The ChromeDriver version must match the Chrome browser version on your machine.
 
@@ -71,7 +72,7 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
   To run the default test scenario (e.g. Login Scenario) on your own machine, use the following command:
   
   .Net Core:
-    ```sh
+    ```
   set TEST_INFRA=ON_PREM
   dotnet test --filter "TestCategory=Single"
   ```
@@ -79,7 +80,7 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
   To run a specific test scenario use the filter tagged to that feature file.
   
   .Net Core:
-  ```sh
+  ```
   dotnet test --filter "TestCategory=<Tag>"
   ```
 
@@ -117,14 +118,14 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
 
     - Start the Docker by running the following command:
 
-  ```sh
+  ```
   docker-compose up -d
   ```
 
    To run the default test scenario (e.g. Login Scenario) on your own machine, use the following command:
   
   .Net Core:
-    ```sh
+    ```
   set TEST_INFRA=DOCKER
   dotnet test --filter "TestCategory=Single"
   ```
@@ -132,7 +133,7 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
   To run a specific test scenario use the filter tagged to that feature file.
   
   .Net Core:
-  ```sh
+  ```
   dotnet test --filter "TestCategory=<Tag>"
   ```
 
@@ -151,7 +152,7 @@ Note: The ChromeDriver version must match the Chrome browser version on your mac
 
   - After tests are complete, you can stop the Docker by running the following command:
       
-  ```sh
+  ```
   docker-compose down
   ```
 
@@ -203,31 +204,31 @@ In this section, we will run a single test on Chrome browser on Browserstack. To
   - To run the default test scenario (e.g. Login Scenario) on your own machine, use the following command:
 
   .Net Core:
-  ```sh
+  ```
   dotnet test --filter "TestCategory=Single"
   ```
 
 
    To run a specific test scenario use the filter tagged to that feature file.
-  ```sh
+  ```
   dotnet test --filter "TestCategory=<Tag>"
   ```
   
   where,the argument 'Tag' can be any profile configured with filters in feature files for this repository.
   
-  E.g. Login Feature can be run by Tag "Single", Offer Feature can be run by Tag "Single",Product Feature can be run by Tag "Local" ,User Feature can be run by Tag "Mobile",E2E Feature can be run by Tag "Parallel"[About the tests in this repository](#About-the-tests-in-this-repository) section.
+  E.g. Login Feature can be run by Tag "Single", Offer Feature can be run by Tag "Local",Product Feature can be run by Tag "Local_Parallel" ,User Feature can be run by Tag "Mobile",E2E Feature can be run by Tag "Parallel"[About the tests in this repository](#About-the-tests-in-this-repository) section.
 
 
 - Output
 
-  This run profile executes a single/local/mobile/parallel test on a single/multiple browser on BrowserStack. Please refer to your [BrowserStack dashboard](https://automate.browserstack.com/) for test results.
+  This run profile executes a single/local/mobile/parallel/local_parallel test on a single/multiple browser on BrowserStack. Please refer to your [BrowserStack dashboard](https://automate.browserstack.com/) for test results.
 
 ### [Web application hosted on internal environment] Running your tests on BrowserStack using BrowserStackLocal
 
 #### Prerequisites
 
 - Clone the [BrowserStack demo application](https://github.com/browserstack/browserstack-demo-app) repository.
-  ```sh
+  ```
   git clone https://github.com/browserstack/browserstack-demo-app
   ``` 
 - Please follow the README.md on the BrowserStack demo application repository to install and start the dev server on localhost.
@@ -247,7 +248,7 @@ In this section, we will run a single test on Chrome browser on Browserstack. To
   -Product Feature can be run by Tag "Local" on a single BrowserStack browser using BrowserStackLocal, use the following command:
 
   .Net Core:
-  ```sh
+  ```
   dotnet test --filter "TestCategory=Local"
   ```
 
@@ -268,7 +269,7 @@ In this section, we will run a single test on Chrome browser on Browserstack. To
 
 ## Observations
 
- <Placeholder section for any other technical or general observations specific to the repository. If none, please remove the section>
+ -If Test are skipped, please check for other instances of .Net Host & BrowserstackLocal running in background and terminate the running instances explicity.   
 
  ## Open Issues
 
