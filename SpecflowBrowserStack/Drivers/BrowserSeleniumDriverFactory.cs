@@ -165,8 +165,14 @@ namespace SpecflowBrowserStack.Drivers
 
         public Local GetLocal(int browserIndex)
         {
-           /* if (browserIndex < 2)
-            {*/
+            string access_key = Environment.GetEnvironmentVariable("BROWSERSTACK_ACCESS_KEY");
+            string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
+            if (access_key == null || access_key == "")
+            {
+                access_key = _configurationDriver.AccessKey;
+            }
+            if ((browserIndex == 1 || (browserIndex > 5 && browserIndex < 8)) && (infra == null || infra == ""))
+            {
                 var specificCap = _configurationDriver.Local.ToList<IConfigurationSection>()[0];
 
                 foreach (var tuple in specificCap.GetChildren().AsEnumerable())
@@ -176,8 +182,8 @@ namespace SpecflowBrowserStack.Drivers
                     {
                     
                         Local _local = new Local();
-                    List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
-                        new KeyValuePair<string, string>("key", _configurationDriver.AccessKey),
+                        List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
+                        new KeyValuePair<string, string>("key", access_key),
                         new KeyValuePair<string, string>("local-identifier", "identifier-unique-name"+i.ToString())
                         
                     };
@@ -187,21 +193,21 @@ namespace SpecflowBrowserStack.Drivers
                 i += 1;
                 }
                 return null;
-          /*  }
+            }
             else
             {
                 return null;
-            }*/
+            }
         }
 
         public IWebDriver OnPremDrivers(String browser)
         {
             if (browser == "firefox")
-                return new FirefoxDriver(@"..\..\browserstack-examples-specflow-1\SpecflowBrowserStack\Drivers\OnPremDriver");
+                return new FirefoxDriver(@"..\..\SpecflowBrowserStack\Drivers\OnPremDriver");
             else if (browser == "chrome")
-                return new ChromeDriver(@"..\..\browserstack-examples-specflowplus-1\SpecflowBrowserStack\Drivers\OnPremDriver\");
+                return new ChromeDriver(@"..\..\SpecflowBrowserStack\Drivers\OnPremDriver\");
             else if (browser == "internet explorer")
-                return new InternetExplorerDriver(@"..\..\browserstack-examples-specflow-1\SpecflowBrowserStack\Drivers\OnPremDriver");
+                return new InternetExplorerDriver(@"..\..\SpecflowBrowserStack\Drivers\OnPremDriver");
             else
                 return null;
         }

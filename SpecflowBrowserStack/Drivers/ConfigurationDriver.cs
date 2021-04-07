@@ -30,7 +30,6 @@ namespace SpecflowBrowserStack.Drivers
 		{
 			var configurationBuilder = new ConfigurationBuilder();
 			string directoryName = Path.GetDirectoryName(typeof(ConfigurationDriver).Assembly.Location);
-            Environment.SetEnvironmentVariable("TEST_INFRA", "");
             string infra = Environment.GetEnvironmentVariable("TEST_INFRA");
             if (infra == "DOCKER")
             {
