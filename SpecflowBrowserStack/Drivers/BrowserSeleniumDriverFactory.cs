@@ -207,7 +207,11 @@ namespace SpecflowBrowserStack.Drivers
             else if (browser == "chrome")
                 return new ChromeDriver(@"..\..\SpecflowBrowserStack\Drivers\OnPremDriver\");
             else if (browser == "internet explorer")
-                return new InternetExplorerDriver(@"..\..\SpecflowBrowserStack\Drivers\OnPremDriver");
+            {
+                var options = new InternetExplorerOptions();
+                options.IgnoreZoomLevel = true;
+                return new InternetExplorerDriver(@"..\..\SpecflowBrowserStack\Drivers\OnPremDriver", options);
+            }
             else
                 return null;
         }
