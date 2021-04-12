@@ -28,7 +28,7 @@ The #{ Selenium test / Cypress / Puppeteer / Other } tests are run on different 
 
 ## About the tests in this repository
 
-  This repository contains the following #{ Selenium test / Cypress / Puppeteer / Other } tests:
+  This repository contains the following #{ Selenium test} tests:
 
   | Module   | Test name                          | Description |
   | ---   | ---                                   | --- |
@@ -267,10 +267,42 @@ In this section, we will run a single test on Chrome browser on Browserstack. To
 - Understand how many parallel sessions you need by using our [Parallel Test Calculator](https://www.browserstack.com/automate/parallel-calculator?ref=github)
 - For testing public web applications behind IP restriction, [Inbound IP Whitelisting](https://www.browserstack.com/local-testing/inbound-ip-whitelisting) can be enabled with the [BrowserStack Enterprise](https://www.browserstack.com/enterprise) offering
 
+## Run the entire test suite in parallel on a single BrowserStack browser
+In this section, we will run the tests in parallel on a single browser on Browserstack. Refer to single object in caps.json file.
+
+How to run the test?
+
+To run the entire test suite in parallel on a single BrowserStack browser, update Tags in all Feature file as @Single and use the following command:
+
+```
+  dotnet test --filter "TestCategory=Single" or dotnet test.
+```
+  #Output
+
+    This run profile executes the entire test suite in parallel on a single BrowserStack browser. Please refer to your [BrowserStack dashboard](https://automate.browserstack.com/) for test results.
+
+      Note:By Default Login Feature is executed on Single profile,Offer Feature is executed on Local profile,E2E Feature is executed on Parallel profile,User Feature is executed on Mobile profile,Product Feature is executed on Local_Parallel profile.
+
+## Run the entire test suite in parallel on a multiple BrowserStack browser
+In this section, we will run the tests in parallel on a single browser on Browserstack. Refer to single object in caps.json file.
+
+How to run the test?
+
+To run the entire test suite in parallel on a multiple BrowserStack browser, update Tags in all Feature file as @Parallel and use the following command:
+
+```
+  dotnet test --filter "TestCategory=Parallel" or dotnet test.
+```
+  #Output
+
+    This run profile executes the entire test suite in parallel on a multiple BrowserStack browser. Please refer to your [BrowserStack dashboard](https://automate.browserstack.com/) for test results.
+
+      Note:By Default Login Feature is executed on Single profile,Offer Feature is executed on Local profile,E2E Feature is executed on Parallel profile,User Feature is executed on Mobile profile,Product Feature is executed on Local_Parallel profile.     
+
 ## Observations
 
  -If Test are skipped, please check for other instances of .Net Host & BrowserstackLocal running in background and terminate the running instances explicity.   
 
- ## Open Issues
+## Open Issues
 
- <Placeholder section for any known open issues (some test known to not work or is flaky). If none, please remove the section>
+ -When running all the tests together, there is some flakiness observed and some Test might get fail.
