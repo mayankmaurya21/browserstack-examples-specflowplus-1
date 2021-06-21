@@ -184,8 +184,10 @@ namespace SpecflowBrowserStack.Drivers
                         Local _local = new Local();
                         List<KeyValuePair<string, string>> bsLocalArgs = new List<KeyValuePair<string, string>>() {
                         new KeyValuePair<string, string>("key", access_key),
-                        new KeyValuePair<string, string>("local-identifier", "identifier-unique-name"+i.ToString())
-                        
+                        new KeyValuePair<string, string>("local-identifier", "identifier-unique-name"+i.ToString()),
+                            
+                        //Set the binary path,when running from Mac
+                        //new KeyValuePair<string, string>("binarypath", "/Path/BrowserStackLocal"),     
                     };
                         _local.start(bsLocalArgs);
                         return _local;
