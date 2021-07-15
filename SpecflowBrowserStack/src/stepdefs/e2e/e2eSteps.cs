@@ -81,8 +81,8 @@ namespace SpecflowBrowserStack.Steps
         public void ThenIClickOnCheckoutButton()
         {
             _driver.Current.FindElement(By.Id("checkout-shipping-continue")).Click();
-            _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("//button[text()='Continue Shopping »']")));
-            _driver.Current.FindElement(By.XPath("//button[text()='Continue Shopping »']")).Click();
+            _driver.Wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(By.XPath("//button[contains(text(),'Continue Shopping')]")));
+            _driver.Current.FindElement(By.XPath("//button[contains(text(),'Continue Shopping')]")).Click();
         }
 
         [Then(@"I click on ""(.*)"" link")]
