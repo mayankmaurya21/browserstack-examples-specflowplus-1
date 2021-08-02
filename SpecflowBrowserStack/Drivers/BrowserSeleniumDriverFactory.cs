@@ -68,7 +68,9 @@ namespace SpecflowBrowserStack.Drivers
                         }
                         caps.SetCapability(tuple.Key.ToString(), buildName);
                     }
-                caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString());
+               else{
+                   caps.SetCapability(tuple.Key.ToString(), tuple.Value.ToString());
+               }
             }
             if (browserId == 0)
             {
