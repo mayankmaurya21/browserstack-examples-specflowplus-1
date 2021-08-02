@@ -20,7 +20,7 @@ namespace SpecflowBrowserStack.Drivers
         string remoteUrl = "";
         private FeatureContext _featureContext;
         private ScenarioContext _scenarioContext;
-        String buildName="",
+        String buildName="";
 
         public BrowserSeleniumDriverFactory(ConfigurationDriver configurationDriver, TestRunContext testRunContext, FeatureContext featureContext, ScenarioContext scenarioContext)
         {
