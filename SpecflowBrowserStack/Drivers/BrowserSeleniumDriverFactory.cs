@@ -64,7 +64,7 @@ namespace SpecflowBrowserStack.Drivers
                         buildName = Environment.GetEnvironmentVariable("BROWSERSTACK_BUILD_NAME");
                         if (buildName == null || buildName == "")
                         {
-                            buildName = "browserSatck-examples-Specflow";
+                            buildName = "browserStack-examples-Specflow";
                         }
                         caps.SetCapability(tuple.Key.ToString(), buildName);
                     }
