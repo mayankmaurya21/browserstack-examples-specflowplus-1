@@ -33,7 +33,6 @@ Local_Parallel''',
 				dir('app') {
 					git branch: 'master', url: 'https://github.com/browserstack/browserstack-demo-app'
 					sh '''
-                        cd app
 npm install
 npm run build
 npm start 
