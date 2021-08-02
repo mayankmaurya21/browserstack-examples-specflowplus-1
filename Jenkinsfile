@@ -35,7 +35,7 @@ Local_Parallel''',
 					sh '''
 npm install
 npm run build
-npm start 
+npm start &
 					'''
 				}
 			} else {
