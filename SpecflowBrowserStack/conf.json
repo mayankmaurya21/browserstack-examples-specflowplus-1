@@ -3,12 +3,7 @@
   "username": "BrowserStack_Username",
   "access_key": "BrowserStack_AccessKey",
   "commonCapabilities": {
-    buildName = Environment.GetEnvironmentVariable("BROWSERSTACK_BUILD_NAME");
-  if (buildName == null || buildName == "")
-            {
-                buildName = "browserstack-examples-specflow";
-            }
-    "build":"buildName",
+    "build":"BROWSERSTACK_BUILD_NAME",
     "project": "Demo BrowserStack"
   },
   "single": [
