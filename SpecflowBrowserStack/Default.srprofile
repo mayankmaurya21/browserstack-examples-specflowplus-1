@@ -7,10 +7,6 @@
     <TestAssemblyPath>SpecflowBrowserStack.dll</TestAssemblyPath>
   </TestAssemblyPaths>
 
-  <Report>
-    <Template name="Report\ReportTemplate.cshtml" />
-  </Report>
-
 	<Targets>
 		<Target name="0">
 			<Filter>Single</Filter>
