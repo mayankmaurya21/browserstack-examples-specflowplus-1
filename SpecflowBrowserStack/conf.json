@@ -1,0 +1,64 @@
+{
+  "host": "hub.browserstack.com",
+  "username": "BrowserStack_Username",
+  "access_key": "BrowserStack_AccessKey",
+  "commonCapabilities": {
+    "build":"BROWSERSTACK_BUILD_NAME",
+    "project": "Demo BrowserStack"
+  },
+  "single": [
+    {
+      "browser": "chrome",
+      "browser_version": "latest",
+      "name": "Single_Test"
+    }
+  ],
+  "local": [
+    {
+      "name": "Local_test",
+      "browser": "chrome",
+      "browser_version": "latest",
+      "os": "OS X",
+      "os_version": "Big Sur",
+      "browserstack.local": true
+    }
+  ],
+  "parallel": [
+    {
+      "browser": "chrome",
+      "browser_version": "latest",
+      "name": "Parallel_test_chrome"
+    },
+    {
+      "browser": "firefox",
+      "browser_version": "latest",
+      "name": "Parallel_test_firefox"
+    },
+    {
+      "browser": "safari",
+      "browser_version": "latest",
+      "name": "Parallel_test_safari"
+    }
+  ],
+  "mobile": [
+    {
+      "name": "Parallel_test_mobile",
+      "device": "Samsung Galaxy S8"
+    }
+  ],
+  "local_parallel": [
+    {
+      "browser": "chrome",
+      "browser_version": "latest",
+      "name": "Parallel_test_chrome",
+      "browserstack.local": true
+    },
+    {
+      "browser": "firefox",
+      "browser_version": "latest",
+      "name": "Parallel_test_firefox",
+      "browserstack.local": true
+    }
+  ]
+
+}
