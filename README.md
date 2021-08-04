@@ -48,7 +48,7 @@ The #{ Selenium test / Cypress / Puppeteer / Other } tests are run on different 
 
 - [ON_PREM](#on-premise-self-hosted)
 - [DOCKER](#docker)
-- [default/null/""](#browserstack)
+- [default or null](#browserstack)
 
 ---
 
@@ -208,7 +208,6 @@ In this section, we will run a single test on Chrome browser on Browserstack. To
   dotnet test --filter "TestCategory=Single"
   ```
 
-
    To run a specific test scenario use the filter tagged to that feature file.
   ```
   dotnet test --filter "TestCategory=<Tag>"
@@ -239,6 +238,8 @@ In this section, we will run a single test on Chrome browser on Browserstack. To
   - [Local Testing with Automate](https://www.browserstack.com/local-testing/automate)
   - [BrowserStackLocal C# GitHub](https://github.com/browserstack/browserstack-local-csharp)
   - Onces Connection is established user "browserstack.local": "true" in cpabalitilies.
+
+**Note**- While running BrowserStack Local on Mac/Linux systems,please provide "binarypath" for the binary installed from [here](https://www.browserstack.com/local-testing/automate) in "./SpecflowBrowserStack/Drivers/BrowserSeleniumDriverFactory.cs" Class "line 202".       
 
 
 ### [Web application hosted on internal environment] Run a specific test on BrowserStack using BrowserStackLocal
@@ -297,7 +298,20 @@ To run the entire test suite in parallel on a multiple BrowserStack browser, upd
 
     This run profile executes the entire test suite in parallel on a multiple BrowserStack browser. Please refer to your [BrowserStack dashboard](https://automate.browserstack.com/) for test results.
 
-      Note:By Default Login Feature is executed on Single profile,Offer Feature is executed on Local profile,E2E Feature is executed on Parallel profile,User Feature is executed on Mobile profile,Product Feature is executed on Local_Parallel profile.     
+      Note:By Default Login Feature is executed on Single profile,Offer Feature is executed on Local profile,E2E Feature is executed on Parallel profile,User Feature is executed on Mobile profile,Product Feature is executed on Local_Parallel profile.    
+
+## Test Reporting
+
+-SpecFlow can generates reports once your tests have finished executing that include a breakdown of the results of your tests. The default report includes a statistical overview of the status of all tests, as well as information on individual scenarios, including Gherkin test cases, statistics on the total number and percentage of successful tests, and the execution time for each step. When running tests from within Visual Studio, a link to the generated report(s) is included in the Output window once the tests have completed.
+ [Report](https://docs.specflow.org/projects/specflow-runner/en/latest/Usage/Reports.html)
+ 
+**Note** -If you are running your tests on Linux or macOS, you need [Mono](https://www.mono-project.com/) installed in order to generate reports with SpecFlow+.             Make sure you have installed Mono on the machine you are using to execute your tests (i.e. on your development machine or build server). We have tests             for the reports using the latest version of Mono, but previous versions should also work.
+
+          For more information on installing Mono, please refer to the Mono documentation:
+            
+            Installation instructions for [Linux](https://www.mono-project.com/docs/getting-started/install/linux/).
+            Installation instructions for [macOS](https://www.mono-project.com/docs/getting-started/install/mac/).
+
 
 ## Observations
 
