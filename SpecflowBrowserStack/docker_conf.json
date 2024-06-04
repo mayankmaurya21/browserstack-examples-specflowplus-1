@@ -1,0 +1,26 @@
+{
+  "host": "http://localhost:4444",
+
+  "single": [
+    {
+      "browserName": "chrome",
+    }
+  ],
+  "local": [
+    {
+      "browserName": "chrome",
+      "browserstack.local": true
+    }
+  ],
+  "parallel": [
+    {
+      "browserName": "chrome"
+    },
+    {
+      "browserName": "firefox"
+    },
+    {
+      "browserName": "chrome"
+    }
+  ],
+}
